@@ -22,4 +22,4 @@ jobs:
 
     steps:
       - name: Print Secret
-        run: echo '${{secrets.MY_SECRET}}''
+        run: echo '${{secrets.MY_SECRET}}'
