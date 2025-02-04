@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  hello world:
+  hello_world:
     runs-on: ubuntu-24.04
 
 
