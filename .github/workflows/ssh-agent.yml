@@ -7,7 +7,7 @@ on:
 
 jobs:
   ssh-agent: # Job 이름
-    run-on: ubuntu-24.04 #Github 워크스페이스 환경
+    runs-on: ubuntu-24.04 #Github 워크스페이스 환경
 
     steps: # 실행할 작업(step)
       - name: run ssh-agent
