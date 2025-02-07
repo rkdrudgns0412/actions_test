@@ -10,12 +10,11 @@ jobs:
     runs-on: ubuntu-24.04 #Github 워크스페이스 환경
 
     steps: # 실행할 작업(step)
-
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
         # 캐시 저장 설정을 위한 actions(라이브러리)
-        - name: Cache Docker Image Layer
+      - name: Cache Docker Image Layer
         # actions/cache : 깃허브 캐시 저장소 활용을 위한 라이브러리
         uses: actions/cache@v4.2.0
         with:
