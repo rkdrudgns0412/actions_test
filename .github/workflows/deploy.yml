@@ -53,10 +53,10 @@ jobs:
 
         # BuildKit 엔진 빌더(이미지 빌드를도와주는 도구) 생성 
         # 기존 Docker 빌더 : Cache 팡리 저장 & 불러오기 경로 제어 불가
-        - name: Creat BuildKit 빌더
-          run: |
-            docker build create --use --name buildkit
-            docker buildx use buildkit
+      - name: Creat BuildKit 빌더
+        run: |
+          docker build create --use --name buildkit
+          docker buildx use buildkit
 
       - name: Docker Image Build
         run: docker compose -f docker-compose-actions-cache.yml build
