@@ -55,7 +55,7 @@ jobs:
         # 기존 Docker 빌더 : Cache 팡리 저장 & 불러오기 경로 제어 불가
       - name: Creat BuildKit 빌더
         run: |
-          docker build create --use --name buildkit
+          docker buildx create --use --name buildkit
           docker buildx use buildkit
 
       - name: Docker Image Build
