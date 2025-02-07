@@ -73,3 +73,11 @@ jobs:
             docker-compose pull
             docker-compose down
             docker-compose up -d
+
+      # 액션 시작 알림 메세지
+      - name: Start Message
+        # 라이브러리 개발자/라이브러리 이름@버전
+        uses: sarisia/actions-status-discord@v1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "🚀 배포 시작"
