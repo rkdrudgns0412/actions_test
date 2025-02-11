@@ -12,6 +12,7 @@ export default function Article({ article, isDetail = false }) {
         }}
         className={`${styles.articleTitle} ${!isDetail && styles.pointer}`}
       >
+        haha
         {article.title}
       </h2>
       {isDetail && <p className={styles.articleContent}>{article.content}</p>}
