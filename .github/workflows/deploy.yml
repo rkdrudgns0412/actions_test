@@ -27,12 +27,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # 원격 서버를 신뢰할 수 있는 서버로 등록하는 과정    
+      # 원격 서버를 신뢰할 수 있는 서버로 등록하는 과정
       - name: Add Remote Server Fingerprint to Known Hosts
         run: ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts || true
 
-      
-    
       - name: Create .env file
         run: |
           echo "DATABASE_HOST=${{ secrets.DATABASE_HOST }}" >> .env
@@ -44,7 +42,6 @@ jobs:
           echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> .env
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
 
-
       # 3. 도커 Buildx 엔진 설정 action(라이브러리)
       - name: Set up Docker BuildKit
         # docker/setup-buildx-action
@@ -52,7 +49,7 @@ jobs:
         # build = BuildKit
         uses: docker/setup-buildx-action@v3
 
-        # BuildKit 엔진 빌더(이미지 빌드를도와주는 도구) 생성 
+        # BuildKit 엔진 빌더(이미지 빌드를도와주는 도구) 생성
         # 기존 Docker 빌더 : Cache 팡리 저장 & 불러오기 경로 제어 불가
       - name: Creat BuildKit 빌더
         run: |
@@ -62,11 +59,8 @@ jobs:
       - name: Docker Image Build
         run: docker compose -f docker-compose-actions-cache.yml build
 
-
       - name: Login DockerHub
         run: echo '${{ secrets.DOCKER_PASSWORD }}' | docker login -u '${{ secrets.DOCKER_USERNAME }}' --password-stdin
-
-
 
       - name: Docker Image Push
         run: docker compose -f docker-compose-actions-cache.yml push
@@ -81,10 +75,9 @@ jobs:
           source: "docker-compose-actions-cache.yml,.env"
           target: "~/work-directory"
 
-
       - name: Pull Iamge & Up Container
         uses: appleboy/ssh-action@v1.0.3
-        with: 
+        with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -94,6 +87,7 @@ jobs:
             docker-compose -f docker-compose-actions-cache.yml pull
             docker-compose -f docker-compose-actions-cache.yml down
             docker-compose -f docker-compose-actions-cache.yml up -d
+            docker image prune -f
 
       # 액션 시작 알림 메세지
       - name: End Message - Success
